@@ -18,6 +18,21 @@ All notable changes to this app are documented in this file.
 - Server-side validations for KPI integrity, sponsor transitions, rejection note, acceptance metadata, and accepted-record immutability.
 - Automated test suite for S1-F1 validations and workflow-related behavior.
 
+### Added — S1-F2 decision accountability record
+- DocType: `Decision Record`.
+- Child Table: `Decision Assumption`.
+- Workflow: `Decision Record Approval`.
+- Report Builder report: `Decision Record Register`.
+- Server-side validations for charter/sponsor linkage integrity, assumption quality constraints, sponsor transitions, rejection note, approval metadata, and approved-record immutability.
+- Automated test suite for S1-F2 validations and workflow-related behavior.
+
+### Added — S1-F3 dependency & exception tracking
+- DocType: `Dependency Exception Record`.
+- Workflow: `Dependency Exception Record Approval`.
+- Report Builder report: `Dependency Exception Record Register`.
+- Server-side validations for decision linkage integrity, dependency/exception date rules, mandatory exception controls, sponsor transitions, rejection note, approval metadata, and approved-record immutability.
+- Automated test suite for S1-F3 validations and workflow-related behavior.
+
 ### Changed
 - Consolidated S1-F1 artifacts into a single canonical implementation tree under `enterprise_intelligence_platform/enterprise_intelligence_platform/`.
 

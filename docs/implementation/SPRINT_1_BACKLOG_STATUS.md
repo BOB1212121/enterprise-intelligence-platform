@@ -9,8 +9,8 @@
 | Feature | Title | Status | Notes |
 | --- | --- | --- | --- |
 | S1-F1 | Lighthouse Workflow Setup & Baseline Charter | **Completed** | Closed with production-readiness audit and app-owned hardening. |
-| S1-F2 | Decision Record with Accountability & Assumptions | Planned | Awaiting implementation approval. |
-| S1-F3 | Dependency & Exception Tracking | Planned | Not started. |
+| S1-F2 | Decision Record with Accountability & Assumptions | **Completed** | Closed with hardening pass and quality gates. |
+| S1-F3 | Dependency & Exception Tracking | **Completed** | Implemented Frappe-native dependency + exception record workflow and test suite. |
 | S1-F4 | Operational Review View | Planned | Not started. |
 | S1-F5 | Attribution Chain & Confidence Entry | Planned | Not started. |
 | S1-F6 | Executive Proof Snapshot | Planned | Not started. |
@@ -67,3 +67,49 @@ Establish a customer-visible lighthouse workflow charter baseline with Frappe-na
 - Keep tests at DocType behavior level (validation, transition permissions, immutability).
 - Add conditional workflow regression tests that detect patched environments without introducing app-side workarounds.
 - Avoid dependencies on third-party monkey-patched internals; treat those as external compatibility boundaries.
+
+---
+
+## S1-F3 close-out (frozen)
+
+### Objective achieved
+Establish dependency and exception tracking tied to decision accountability so blocker visibility, exception discipline, and sponsor governance are auditable in a Frappe-native workflow.
+
+### Implemented functionality
+- DocType: `Dependency Exception Record`
+- Workflow: `Dependency Exception Record Approval` (all states at `docstatus=0`)
+- Roles: `EIP Workflow Owner`, `EIP Executive Sponsor`, `EIP Operations Manager`
+- Report Builder report: `Dependency Exception Record Register`
+- Server-side validations for decision linkage integrity, date rules, exception mandatory fields, resolved-state note requirement, sponsor-only approval/rejection, rejection note requirement, approval metadata, and approved-record immutability for non-System Managers
+- Automated S1-F3 tests
+
+### Acceptance criteria checklist
+- [x] Dependency record can be created with required linkage, owner/sponsor, and dependency fields
+- [x] Decision linkage integrity enforced (sponsor/charter must align to linked `Decision Record`)
+- [x] Date rules enforced for resolution and exception expiry
+- [x] Exception governance fields required when exception flag is enabled (owner/reason/expiry/remediation intent)
+- [x] Resolved status requires resolution note
+- [x] Sponsor approval/rejection state logic enforced
+- [x] Rejection requires sponsor decision note
+- [x] Approval metadata captured (`approved_by`, `approved_on`)
+- [x] Approved records immutable for non-System Managers
+- [x] Register report available with expected columns and role access
+
+### Test summary
+- Site: `baby-dokkan.store`
+- Test module: `enterprise_intelligence_platform.enterprise_intelligence_platform.doctype.dependency_exception_record.test_dependency_exception_record`
+- Last run result: `Ran 10 tests` → `OK (skipped=1)`
+
+### Known limitations
+- Native `frappe.model.workflow.apply_workflow` regression test is conditionally skipped when environment-level workflow monkey patches are detected.
+
+### Technical debt
+- None blocking inside Enterprise Intelligence Platform for S1-F3.
+
+### Open risks
+- External compatibility risk remains if third-party apps monkey-patch workflow internals against outdated schema assumptions.
+
+### Deployment notes
+1. Run: `bench --site baby-dokkan.store migrate`
+2. Ensure tests are enabled for CI/site validation: `allow_tests = true`
+3. Run S1-F3 module tests before release gate.

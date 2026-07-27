@@ -3,28 +3,64 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import now_datetime
 
+STATE_DRAFT = "Draft"
+STATE_SUBMITTED_FOR_APPROVAL = "Submitted for Approval"
 STATE_APPROVED = "Approved"
 STATE_REJECTED = "Rejected"
 ROLE_SYSTEM_MANAGER = "System Manager"
 SCORE_MIN = 0
 SCORE_MAX = 1
+ALLOWED_STATE_TRANSITIONS = {
+	(STATE_DRAFT, STATE_SUBMITTED_FOR_APPROVAL),
+	(STATE_SUBMITTED_FOR_APPROVAL, STATE_APPROVED),
+	(STATE_SUBMITTED_FOR_APPROVAL, STATE_REJECTED),
+	(STATE_REJECTED, STATE_DRAFT),
+}
 
 
 class DecisionRecord(Document):
 	def validate(self):
-		self.validate_approved_record_immutability()
+		previous = self.get_doc_before_save()
+		roles = set(frappe.get_roles())
+
+		self.validate_state_transition(previous)
+		self.validate_approved_record_immutability(previous, roles)
 		self.validate_charter_linkage()
 		self.validate_dates()
 		self.validate_assumptions()
-		self.validate_sponsor_state_transition()
-		self.set_approval_metadata()
+		self.validate_sponsor_state_transition(previous, roles)
+		self.set_approval_metadata(previous)
 
-	def validate_approved_record_immutability(self):
-		previous = self.get_doc_before_save()
+	def validate_state_transition(self, previous):
+		if not previous:
+			if not self.approval_state:
+				self.approval_state = STATE_DRAFT
+
+			if self.approval_state != STATE_DRAFT:
+				frappe.throw(
+					_("Illegal initial approval state on insert: {to_state}. Must be {initial_state}.").format(
+						to_state=self.approval_state,
+						initial_state=STATE_DRAFT,
+					)
+				)
+			return
+
+		previous_state = previous.approval_state or ""
+		current_state = self.approval_state or previous_state
+
+		if current_state == previous_state:
+			return
+
+		if (previous_state, current_state) not in ALLOWED_STATE_TRANSITIONS:
+			frappe.throw(_("Illegal approval state transition from {from_state} to {to_state}.").format(
+				from_state=previous_state or _("(empty)"), to_state=current_state or _("(empty)")
+			))
+
+	def validate_approved_record_immutability(self, previous, roles):
 		if not previous:
 			return
 
-		if previous.approval_state == STATE_APPROVED and ROLE_SYSTEM_MANAGER not in frappe.get_roles():
+		if previous.approval_state == STATE_APPROVED and ROLE_SYSTEM_MANAGER not in roles:
 			frappe.throw(_("Approved Decision Records are immutable for non-System Managers."))
 
 	def validate_charter_linkage(self):
@@ -72,21 +108,19 @@ class DecisionRecord(Document):
 					)
 				)
 
-	def validate_sponsor_state_transition(self):
+	def validate_sponsor_state_transition(self, previous, roles):
 		if self.approval_state == STATE_REJECTED and not self.decision_note:
 			frappe.throw(_("Decision Note is required when a decision is rejected."))
 
-		previous = self.get_doc_before_save()
 		previous_state = previous.approval_state if previous else None
 		state_changed = self.approval_state != previous_state
 		is_sponsor_state = self.approval_state in {STATE_APPROVED, STATE_REJECTED}
 
 		if state_changed and is_sponsor_state:
-			if frappe.session.user != self.executive_sponsor and ROLE_SYSTEM_MANAGER not in frappe.get_roles():
+			if frappe.session.user != self.executive_sponsor and ROLE_SYSTEM_MANAGER not in roles:
 				frappe.throw(_("Only the designated Executive Sponsor can approve or reject this decision."))
 
-	def set_approval_metadata(self):
-		previous = self.get_doc_before_save()
+	def set_approval_metadata(self, previous):
 		previous_state = previous.approval_state if previous else None
 		state_changed_to_approved = self.approval_state == STATE_APPROVED and previous_state != STATE_APPROVED
 

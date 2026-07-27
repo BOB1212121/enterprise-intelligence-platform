@@ -5,25 +5,61 @@ from frappe.utils import now_datetime
 
 REQUIRED_KPI_CODES = {"DRR", "DCT", "AER", "OCR", "RER"}
 PERCENT_KPI_CODES = {"DRR", "AER", "OCR", "RER"}
+STATE_DRAFT = "Draft"
+STATE_SUBMITTED_FOR_SPONSOR_APPROVAL = "Submitted for Sponsor Approval"
 STATE_BASELINE_ACCEPTED = "Baseline Accepted"
 STATE_BASELINE_REJECTED = "Baseline Rejected"
 ROLE_SYSTEM_MANAGER = "System Manager"
+ALLOWED_STATE_TRANSITIONS = {
+	(STATE_DRAFT, STATE_SUBMITTED_FOR_SPONSOR_APPROVAL),
+	(STATE_SUBMITTED_FOR_SPONSOR_APPROVAL, STATE_BASELINE_ACCEPTED),
+	(STATE_SUBMITTED_FOR_SPONSOR_APPROVAL, STATE_BASELINE_REJECTED),
+	(STATE_BASELINE_REJECTED, STATE_DRAFT),
+}
 
 
 class LighthouseWorkflowCharter(Document):
 	def validate(self):
-		self.validate_accepted_record_immutability()
+		previous = self.get_doc_before_save()
+		roles = set(frappe.get_roles())
+
+		self.validate_state_transition(previous)
+		self.validate_accepted_record_immutability(previous, roles)
 		self.validate_baseline_date_range()
 		self.validate_kpi_rows()
-		self.validate_sponsor_state_transition()
-		self.set_acceptance_metadata()
+		self.validate_sponsor_state_transition(previous, roles)
+		self.set_acceptance_metadata(previous)
 
-	def validate_accepted_record_immutability(self):
-		previous = self.get_doc_before_save()
+	def validate_state_transition(self, previous):
+		if not previous:
+			if not self.approval_state:
+				self.approval_state = STATE_DRAFT
+
+			if self.approval_state != STATE_DRAFT:
+				frappe.throw(
+					_("Illegal initial approval state on insert: {to_state}. Must be {initial_state}.").format(
+						to_state=self.approval_state,
+						initial_state=STATE_DRAFT,
+					)
+				)
+			return
+
+		previous_state = previous.approval_state or ""
+		current_state = self.approval_state or previous_state
+
+		if current_state == previous_state:
+			return
+
+		if (previous_state, current_state) not in ALLOWED_STATE_TRANSITIONS:
+			frappe.throw(_("Illegal approval state transition from {from_state} to {to_state}. ").format(
+				from_state=previous_state or _("(empty)"), to_state=current_state or _("(empty)")
+			))
+
+	def validate_accepted_record_immutability(self, previous, roles):
 		if not previous:
 			return
 
-		if previous.approval_state == STATE_BASELINE_ACCEPTED and ROLE_SYSTEM_MANAGER not in frappe.get_roles():
+		if previous.approval_state == STATE_BASELINE_ACCEPTED and ROLE_SYSTEM_MANAGER not in roles:
 			frappe.throw(_("Baseline Accepted records are immutable for non-System Managers."))
 
 	def validate_baseline_date_range(self):
@@ -70,21 +106,19 @@ class LighthouseWorkflowCharter(Document):
 				)
 			)
 
-	def validate_sponsor_state_transition(self):
+	def validate_sponsor_state_transition(self, previous, roles):
 		if self.approval_state == STATE_BASELINE_REJECTED and not self.sponsor_decision_note:
 			frappe.throw(_("Sponsor Decision Note is required when baseline is rejected."))
 
-		previous = self.get_doc_before_save()
 		previous_state = previous.approval_state if previous else None
 		state_changed = self.approval_state != previous_state
 		is_sponsor_state = self.approval_state in {STATE_BASELINE_ACCEPTED, STATE_BASELINE_REJECTED}
 
 		if state_changed and is_sponsor_state:
-			if frappe.session.user != self.executive_sponsor and ROLE_SYSTEM_MANAGER not in frappe.get_roles():
+			if frappe.session.user != self.executive_sponsor and ROLE_SYSTEM_MANAGER not in roles:
 				frappe.throw(_("Only the designated Executive Sponsor can approve or reject this charter."))
 
-	def set_acceptance_metadata(self):
-		previous = self.get_doc_before_save()
+	def set_acceptance_metadata(self, previous):
 		previous_state = previous.approval_state if previous else None
 		state_changed_to_accepted = (
 			self.approval_state == STATE_BASELINE_ACCEPTED and previous_state != STATE_BASELINE_ACCEPTED

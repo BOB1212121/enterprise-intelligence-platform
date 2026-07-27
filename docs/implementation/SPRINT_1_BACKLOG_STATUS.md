@@ -44,7 +44,7 @@ Establish a customer-visible lighthouse workflow charter baseline with Frappe-na
 ### Test summary
 - Site: `baby-dokkan.store`
 - Test module: `enterprise_intelligence_platform.enterprise_intelligence_platform.doctype.lighthouse_workflow_charter.test_lighthouse_workflow_charter`
-- Last run result: `Ran 9 tests` → `OK (skipped=1)`
+- Last run result: `Ran 18 tests` → `OK (skipped=1)`
 
 ### Known limitations
 - Native `frappe.model.workflow.apply_workflow` regression test is conditionally skipped when environment-level workflow monkey patches are detected.
@@ -98,7 +98,7 @@ Establish dependency and exception tracking tied to decision accountability so b
 ### Test summary
 - Site: `baby-dokkan.store`
 - Test module: `enterprise_intelligence_platform.enterprise_intelligence_platform.doctype.dependency_exception_record.test_dependency_exception_record`
-- Last run result: `Ran 10 tests` → `OK (skipped=1)`
+- Last run result: `Ran 19 tests` → `OK (skipped=1)`
 
 ### Known limitations
 - Native `frappe.model.workflow.apply_workflow` regression test is conditionally skipped when environment-level workflow monkey patches are detected.
@@ -108,6 +108,10 @@ Establish dependency and exception tracking tied to decision accountability so b
 
 ### Open risks
 - External compatibility risk remains if third-party apps monkey-patch workflow internals against outdated schema assumptions.
+
+### Developer note (workflow integrity boundary)
+- Sprint 1 workflow integrity guards are enforced in controller `validate()` and native workflow actions, i.e. `insert()/save()/apply_workflow` paths.
+- `db_set()` bypasses controller validation by design in Frappe and must only be used by trusted internal code paths.
 
 ### Deployment notes
 1. Run: `bench --site baby-dokkan.store migrate`

@@ -20,6 +20,9 @@ class TestLighthouseWorkflowCharter(FrappeTestCase):
 		cls.other_sponsor_user = cls.make_user_with_role(
 			"eip_other_sponsor@example.com", "EIP Executive Sponsor"
 		)
+		cls.operations_user = cls.make_user_with_role(
+			"eip_operations_manager@example.com", "EIP Operations Manager"
+		)
 
 	def tearDown(self):
 		frappe.set_user("Administrator")
@@ -147,3 +150,72 @@ class TestLighthouseWorkflowCharter(FrappeTestCase):
 		frappe.set_user(self.owner_user)
 		transitioned = workflow_module.apply_workflow(doc, "Submit")
 		self.assertEqual(transitioned.approval_state, "Submitted for Sponsor Approval")
+
+	def test_illegal_direct_transition_draft_to_accepted_is_blocked(self):
+		doc = self.make_charter_doc().insert(ignore_permissions=True)
+		frappe.set_user(self.sponsor_user)
+		doc.approval_state = "Baseline Accepted"
+		self.assertRaises(frappe.ValidationError, doc.save, ignore_permissions=True)
+
+	def test_insert_with_draft_succeeds(self):
+		doc = self.make_charter_doc()
+		doc.approval_state = "Draft"
+		inserted = doc.insert(ignore_permissions=True)
+		self.assertEqual(inserted.approval_state, "Draft")
+
+	def test_insert_with_submitted_fails(self):
+		doc = self.make_charter_doc()
+		doc.approval_state = "Submitted for Sponsor Approval"
+		self.assertRaises(frappe.ValidationError, doc.insert, ignore_permissions=True)
+
+	def test_insert_with_approved_fails(self):
+		doc = self.make_charter_doc()
+		doc.approval_state = "Baseline Accepted"
+		self.assertRaises(frappe.ValidationError, doc.insert, ignore_permissions=True)
+
+	def test_insert_with_rejected_fails(self):
+		doc = self.make_charter_doc()
+		doc.approval_state = "Baseline Rejected"
+		self.assertRaises(frappe.ValidationError, doc.insert, ignore_permissions=True)
+
+	def test_owner_can_create_without_permission_bypass(self):
+		frappe.set_user(self.owner_user)
+		doc = self.make_charter_doc().insert()
+		self.assertEqual(doc.doctype, "Lighthouse Workflow Charter")
+
+	def test_sponsor_cannot_create_without_permission_bypass(self):
+		frappe.set_user(self.sponsor_user)
+		doc = self.make_charter_doc()
+		self.assertRaises(frappe.PermissionError, doc.insert)
+
+	def test_operations_manager_cannot_write_without_permission_bypass(self):
+		frappe.set_user("Administrator")
+		doc = self.make_charter_doc().insert()
+		frappe.set_user(self.operations_user)
+		doc.reload()
+		doc.business_objective = "Ops manager edit attempt"
+		self.assertRaises(frappe.PermissionError, doc.save)
+
+	def test_empty_approval_state_is_normalized_to_draft(self):
+		# Existing doc via save() (normal path)
+		doc_save = self.make_charter_doc().insert(ignore_permissions=True)
+		doc_save.reload()
+		doc_save.approval_state = ""
+		doc_save.save()
+		doc_save.reload()
+		self.assertEqual(doc_save.approval_state, "Draft")
+
+		# Existing doc via save(ignore_permissions=True)
+		doc_save_ignore = self.make_charter_doc().insert(ignore_permissions=True)
+		doc_save_ignore.reload()
+		doc_save_ignore.approval_state = ""
+		doc_save_ignore.save(ignore_permissions=True)
+		doc_save_ignore.reload()
+		self.assertEqual(doc_save_ignore.approval_state, "Draft")
+
+		# New doc via insert(ignore_permissions=True)
+		doc_insert = self.make_charter_doc()
+		doc_insert.approval_state = ""
+		doc_insert.insert(ignore_permissions=True)
+		doc_insert.reload()
+		self.assertEqual(doc_insert.approval_state, "Draft")

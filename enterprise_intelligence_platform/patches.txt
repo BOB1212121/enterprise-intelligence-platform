@@ -4,3 +4,5 @@
 
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
+enterprise_intelligence_platform.patches.post_model_sync.create_s1_f1_workflow_and_roles
+enterprise_intelligence_platform.patches.post_model_sync.create_s1_f2_workflow_and_roles

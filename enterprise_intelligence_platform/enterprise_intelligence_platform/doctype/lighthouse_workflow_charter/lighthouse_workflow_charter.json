@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "workflow_name",
+  "business_objective",
+  "in_scope_definition",
+  "column_break_5",
+  "accountable_owner",
+  "executive_sponsor",
+  "operating_cadence",
+  "section_break_8",
+  "baseline_start_date",
+  "baseline_end_date",
+  "approval_state",
+  "section_break_12",
+  "baseline_kpis",
+  "section_break_14",
+  "sponsor_decision_note",
+  "baseline_accepted_by",
+  "baseline_accepted_on"
+ ],
+ "fields": [
+  {
+   "default": "LWC-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "LWC-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "workflow_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Workflow Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "business_objective",
+   "fieldtype": "Small Text",
+   "label": "Business Objective",
+   "reqd": 1
+  },
+  {
+   "fieldname": "in_scope_definition",
+   "fieldtype": "Small Text",
+   "label": "In Scope Definition",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "accountable_owner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Accountable Owner",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "executive_sponsor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Executive Sponsor",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "default": "Weekly",
+   "fieldname": "operating_cadence",
+   "fieldtype": "Select",
+   "label": "Operating Cadence",
+   "options": "Weekly\nMonthly",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "baseline_start_date",
+   "fieldtype": "Date",
+   "label": "Baseline Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "baseline_end_date",
+   "fieldtype": "Date",
+   "label": "Baseline End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "approval_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Approval State",
+   "options": "Draft\nSubmitted for Sponsor Approval\nBaseline Accepted\nBaseline Rejected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "baseline_kpis",
+   "fieldtype": "Table",
+   "label": "Baseline KPIs",
+   "options": "Lighthouse Baseline KPI",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.approval_state=='Baseline Rejected'",
+   "fieldname": "sponsor_decision_note",
+   "fieldtype": "Small Text",
+   "label": "Sponsor Decision Note"
+  },
+  {
+   "fieldname": "baseline_accepted_by",
+   "fieldtype": "Link",
+   "label": "Baseline Accepted By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "baseline_accepted_on",
+   "fieldtype": "Datetime",
+   "label": "Baseline Accepted On",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Lighthouse Workflow Charter",
+ "naming_rule": "By \"Naming Series\"",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Workflow Owner",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Executive Sponsor",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Operations Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "workflow_name",
+ "track_changes": 1
+}

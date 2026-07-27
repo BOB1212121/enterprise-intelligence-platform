@@ -4,6 +4,8 @@
 **Scope:** Enterprise Decision Intelligence Platform architecture (pre-code and implementation roadmap phases)  
 **Rule:** This file is updated at every approved phase gate.
 
+> **Canonical source note (Sprint 0):** `docs/MASTER_ARCHITECTURE.md` is the canonical architecture source for implementation governance.
+
 ---
 
 ## 1) Architectural Governance
@@ -58,7 +60,7 @@
 | 14 | Economic Value Model | Approved (V1 level) | `PHASE_1_PRD_V1_BUSINESS_OUTCOME.md` |
 | 15 | AI Architecture (Conceptual) | Approved (model-agnostic reasoning) | `PHASE_6_AI_REASONING_ARCHITECTURE_MODEL_AGNOSTIC.md` |
 | 16 | Engineering Constitution | Approved | `ENGINEERING_CONSTITUTION.md` |
-| 17 | Reference Architecture | Pending | _TBD_ |
+| 17 | Reference Architecture | Draft for approval (Sprint 0 / S0-F1) | `docs/Architecture/REFERENCE_ARCHITECTURE.md` |
 | 18 | Plugin Architecture | Pending | _TBD_ |
 | 19 | Integration Architecture | Pending | _TBD_ |
 | 20 | Multi-Tenant Architecture | Pending | _TBD_ |
@@ -122,6 +124,8 @@ No phase is considered active until recorded here.
 8. Phase 23: DevOps architecture (delivery governance and operational lifecycle)  
 9. Phase 24: implementation roadmap
 
+**Execution rule (Sprint 0 onward):** Once Phase 17 (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) is approved, implementation proceeds immediately; no further architecture document blocks execution unless a critical contradiction is discovered and logged via ADR.
+
 ---
 
 ## 7) Engineering Architecture Authority
@@ -137,3 +141,5 @@ No phase is considered active until recorded here.
 - **2026-07-27:** Initialized `MASTER_ARCHITECTURE.md` as the project’s single living architecture document and linked approved artifacts.
 - **2026-07-27:** Added `ENGINEERING_CONSTITUTION.md` as highest engineering authority and transitioned architecture governance into Engineering Architecture mode.
 - **2026-07-27:** Reordered remaining engineering phases: Engineering Constitution -> Reference Architecture -> Plugin -> Integration -> Multi-Tenant -> Security -> Deployment -> DevOps -> Implementation Roadmap.
+- **2026-07-27:** Added Sprint 0 Reference Architecture draft (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) and ADR-0001; established non-blocking implementation rule after Phase 17 approval unless critical contradiction is logged.
+- **2026-07-27:** Implementation progress — S1-F1 completed (Lighthouse Workflow Setup & Baseline Charter) on `baby-dokkan.store` with Frappe-native DocTypes, Workflow, permissions, report, validations, and passing test suite. External workflow monkey-patch incompatibility documented as non-app issue.

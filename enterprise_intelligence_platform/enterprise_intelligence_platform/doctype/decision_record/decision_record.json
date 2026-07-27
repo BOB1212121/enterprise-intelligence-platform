@@ -1,0 +1,216 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "decision_title",
+  "lighthouse_workflow_charter",
+  "column_break_3",
+  "accountable_owner",
+  "executive_sponsor",
+  "section_break_6",
+  "decision_type",
+  "decision_criticality",
+  "proposal_date",
+  "target_decision_date",
+  "approval_state",
+  "section_break_12",
+  "business_decision_summary",
+  "tradeoff_summary",
+  "section_break_15",
+  "assumptions",
+  "section_break_17",
+  "decision_note",
+  "approved_by",
+  "approved_on"
+ ],
+ "fields": [
+  {
+   "default": "DR-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "DR-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Decision Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "lighthouse_workflow_charter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lighthouse Workflow Charter",
+   "options": "Lighthouse Workflow Charter",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "accountable_owner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Accountable Owner",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "executive_sponsor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Executive Sponsor",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Operational",
+   "fieldname": "decision_type",
+   "fieldtype": "Select",
+   "label": "Decision Type",
+   "options": "Operational\nStrategic",
+   "reqd": 1
+  },
+  {
+   "default": "Medium",
+   "fieldname": "decision_criticality",
+   "fieldtype": "Select",
+   "label": "Decision Criticality",
+   "options": "Low\nMedium\nHigh",
+   "reqd": 1
+  },
+  {
+   "fieldname": "proposal_date",
+   "fieldtype": "Date",
+   "label": "Proposal Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "target_decision_date",
+   "fieldtype": "Date",
+   "label": "Target Decision Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "approval_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Approval State",
+   "options": "Draft\nSubmitted for Approval\nApproved\nRejected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "business_decision_summary",
+   "fieldtype": "Small Text",
+   "label": "Business Decision Summary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tradeoff_summary",
+   "fieldtype": "Small Text",
+   "label": "Trade-off Summary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "assumptions",
+   "fieldtype": "Table",
+   "label": "Assumptions",
+   "options": "Decision Assumption",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.approval_state=='Rejected'",
+   "fieldname": "decision_note",
+   "fieldtype": "Small Text",
+   "label": "Decision Note"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Approved On",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Decision Record",
+ "naming_rule": "By \"Naming Series\"",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Workflow Owner",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Executive Sponsor",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Operations Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "decision_title",
+ "track_changes": 1
+}

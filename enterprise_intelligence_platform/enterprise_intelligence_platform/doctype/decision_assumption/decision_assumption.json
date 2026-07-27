@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "assumption_text",
+  "confidence_score",
+  "falsifiability_note",
+  "expiry_date"
+ ],
+ "fields": [
+  {
+   "fieldname": "assumption_text",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Assumption",
+   "reqd": 1
+  },
+  {
+   "fieldname": "confidence_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Confidence Score",
+   "reqd": 1
+  },
+  {
+   "fieldname": "falsifiability_note",
+   "fieldtype": "Small Text",
+   "label": "Falsifiability Note"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Assumption Expiry Date"
+  }
+ ],
+ "idx": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Decision Assumption",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

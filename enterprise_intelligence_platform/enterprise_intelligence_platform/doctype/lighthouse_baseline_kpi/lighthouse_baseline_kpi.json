@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kpi_code",
+  "baseline_value",
+  "data_source",
+  "calculation_note"
+ ],
+ "fields": [
+  {
+   "fieldname": "kpi_code",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "KPI Code",
+   "options": "DRR\nDCT\nAER\nOCR\nRER",
+   "reqd": 1
+  },
+  {
+   "fieldname": "baseline_value",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Baseline Value",
+   "reqd": 1
+  },
+  {
+   "fieldname": "data_source",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Data Source",
+   "reqd": 1
+  },
+  {
+   "fieldname": "calculation_note",
+   "fieldtype": "Small Text",
+   "label": "Calculation Note"
+  }
+ ],
+ "idx": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Lighthouse Baseline KPI",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,10 +1,25 @@
 import frappe
 
-ROLES = ["EIP Workflow Owner", "EIP Executive Sponsor", "EIP Operations Manager"]
+ROLE_WORKFLOW_OWNER = "EIP Workflow Owner"
+ROLE_EXECUTIVE_SPONSOR = "EIP Executive Sponsor"
+ROLE_OPERATIONS_MANAGER = "EIP Operations Manager"
+ROLE_SYSTEM_MANAGER = "System Manager"
+
+STATE_DRAFT = "Draft"
+STATE_SUBMITTED_FOR_APPROVAL = "Submitted for Approval"
+STATE_APPROVED = "Approved"
+STATE_REJECTED = "Rejected"
+
+ACTION_SUBMIT = "Submit"
+ACTION_APPROVE = "Approve"
+ACTION_REJECT = "Reject"
+ACTION_REVISE = "Revise"
+
+ROLES = [ROLE_WORKFLOW_OWNER, ROLE_EXECUTIVE_SPONSOR, ROLE_OPERATIONS_MANAGER]
 WORKFLOW_NAME = "Decision Record Approval"
 TARGET_DOCTYPE = "Decision Record"
-WORKFLOW_STATES = ["Draft", "Submitted for Approval", "Approved", "Rejected"]
-WORKFLOW_ACTIONS = ["Submit", "Approve", "Reject", "Revise"]
+WORKFLOW_STATES = [STATE_DRAFT, STATE_SUBMITTED_FOR_APPROVAL, STATE_APPROVED, STATE_REJECTED]
+WORKFLOW_ACTIONS = [ACTION_SUBMIT, ACTION_APPROVE, ACTION_REJECT, ACTION_REVISE]
 
 
 def execute():
@@ -58,31 +73,31 @@ def ensure_workflow():
 	workflow.is_active = 1
 	workflow.send_email_alert = 0
 
-	workflow.append("states", {"state": "Draft", "doc_status": "0", "allow_edit": "EIP Workflow Owner"})
+	workflow.append("states", {"state": STATE_DRAFT, "doc_status": "0", "allow_edit": ROLE_WORKFLOW_OWNER})
 	workflow.append(
 		"states",
-		{"state": "Submitted for Approval", "doc_status": "0", "allow_edit": "EIP Executive Sponsor"},
+		{"state": STATE_SUBMITTED_FOR_APPROVAL, "doc_status": "0", "allow_edit": ROLE_EXECUTIVE_SPONSOR},
 	)
-	workflow.append("states", {"state": "Approved", "doc_status": "0", "allow_edit": "System Manager"})
-	workflow.append("states", {"state": "Rejected", "doc_status": "0", "allow_edit": "EIP Workflow Owner"})
+	workflow.append("states", {"state": STATE_APPROVED, "doc_status": "0", "allow_edit": ROLE_SYSTEM_MANAGER})
+	workflow.append("states", {"state": STATE_REJECTED, "doc_status": "0", "allow_edit": ROLE_WORKFLOW_OWNER})
 
 	workflow.append(
 		"transitions",
 		{
-			"state": "Draft",
-			"action": "Submit",
-			"next_state": "Submitted for Approval",
-			"allowed": "EIP Workflow Owner",
+			"state": STATE_DRAFT,
+			"action": ACTION_SUBMIT,
+			"next_state": STATE_SUBMITTED_FOR_APPROVAL,
+			"allowed": ROLE_WORKFLOW_OWNER,
 			"allow_self_approval": 1,
 		},
 	)
 	workflow.append(
 		"transitions",
 		{
-			"state": "Submitted for Approval",
-			"action": "Approve",
-			"next_state": "Approved",
-			"allowed": "EIP Executive Sponsor",
+			"state": STATE_SUBMITTED_FOR_APPROVAL,
+			"action": ACTION_APPROVE,
+			"next_state": STATE_APPROVED,
+			"allowed": ROLE_EXECUTIVE_SPONSOR,
 			"allow_self_approval": 1,
 			"condition": "doc.executive_sponsor == frappe.session.user",
 		},
@@ -90,10 +105,10 @@ def ensure_workflow():
 	workflow.append(
 		"transitions",
 		{
-			"state": "Submitted for Approval",
-			"action": "Reject",
-			"next_state": "Rejected",
-			"allowed": "EIP Executive Sponsor",
+			"state": STATE_SUBMITTED_FOR_APPROVAL,
+			"action": ACTION_REJECT,
+			"next_state": STATE_REJECTED,
+			"allowed": ROLE_EXECUTIVE_SPONSOR,
 			"allow_self_approval": 1,
 			"condition": "doc.executive_sponsor == frappe.session.user and doc.decision_note",
 		},
@@ -101,10 +116,10 @@ def ensure_workflow():
 	workflow.append(
 		"transitions",
 		{
-			"state": "Rejected",
-			"action": "Revise",
-			"next_state": "Draft",
-			"allowed": "EIP Workflow Owner",
+			"state": STATE_REJECTED,
+			"action": ACTION_REVISE,
+			"next_state": STATE_DRAFT,
+			"allowed": ROLE_WORKFLOW_OWNER,
 			"allow_self_approval": 1,
 		},
 	)

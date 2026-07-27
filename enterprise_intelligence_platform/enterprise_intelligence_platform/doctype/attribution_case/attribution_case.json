@@ -1,0 +1,238 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "attribution_title",
+  "decision_record",
+  "lighthouse_workflow_charter",
+  "column_break_5",
+  "accountable_owner",
+  "executive_sponsor",
+  "section_break_8",
+  "observation_start_date",
+  "observation_end_date",
+  "approval_state",
+  "section_break_12",
+  "attribution_summary",
+  "confounder_summary",
+  "section_break_15",
+  "confidence_score",
+  "confidence_rationale",
+  "section_break_18",
+  "attribution_chain_steps",
+  "section_break_20",
+  "attribution_evidence",
+  "section_break_22",
+  "sponsor_decision_note",
+  "approved_by",
+  "approved_on"
+ ],
+ "fields": [
+  {
+   "default": "AC-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "AC-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "attribution_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Attribution Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_record",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Decision Record",
+   "options": "Decision Record",
+   "reqd": 1
+  },
+  {
+   "fieldname": "lighthouse_workflow_charter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lighthouse Workflow Charter",
+   "options": "Lighthouse Workflow Charter",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "accountable_owner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Accountable Owner",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "executive_sponsor",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Executive Sponsor",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "observation_start_date",
+   "fieldtype": "Date",
+   "label": "Observation Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "observation_end_date",
+   "fieldtype": "Date",
+   "label": "Observation End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "approval_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Approval State",
+   "options": "Draft\nSubmitted for Approval\nApproved\nRejected",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "attribution_summary",
+   "fieldtype": "Small Text",
+   "label": "Attribution Summary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "confounder_summary",
+   "fieldtype": "Small Text",
+   "label": "Confounder Summary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "confidence_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Confidence Score",
+   "reqd": 1
+  },
+  {
+   "fieldname": "confidence_rationale",
+   "fieldtype": "Small Text",
+   "label": "Confidence Rationale",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "attribution_chain_steps",
+   "fieldtype": "Table",
+   "label": "Attribution Chain Steps",
+   "options": "Attribution Chain Step"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "attribution_evidence",
+   "fieldtype": "Table",
+   "label": "Attribution Evidence",
+   "options": "Attribution Evidence"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.approval_state=='Rejected'",
+   "fieldname": "sponsor_decision_note",
+   "fieldtype": "Small Text",
+   "label": "Sponsor Decision Note"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Approved On",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Attribution Case",
+ "naming_rule": "By \"Naming Series\"",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Workflow Owner",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Executive Sponsor",
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "EIP Operations Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "attribution_title",
+ "track_changes": 1
+}

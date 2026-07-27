@@ -1,0 +1,46 @@
+{
+ "actions": [],
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sequence_no",
+  "step_summary",
+  "dependency_exception_record"
+ ],
+ "fields": [
+  {
+   "fieldname": "sequence_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Sequence No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "step_summary",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Step Summary",
+   "reqd": 1
+  },
+  {
+   "fieldname": "dependency_exception_record",
+   "fieldtype": "Link",
+   "label": "Dependency Exception Record",
+   "options": "Dependency Exception Record"
+  }
+ ],
+ "idx": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Attribution Chain Step",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

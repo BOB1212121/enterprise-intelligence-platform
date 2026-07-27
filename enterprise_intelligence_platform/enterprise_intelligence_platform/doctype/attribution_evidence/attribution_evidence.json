@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "creation": "2026-07-27 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "evidence_type",
+  "supports_claim",
+  "evidence_reference",
+  "evidence_date",
+  "evidence_note"
+ ],
+ "fields": [
+  {
+   "fieldname": "evidence_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Evidence Type",
+   "options": "Metric\nDocument\nMeeting\nExternal",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "supports_claim",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Supports Claim"
+  },
+  {
+   "fieldname": "evidence_reference",
+   "fieldtype": "Small Text",
+   "label": "Evidence Reference",
+   "reqd": 1
+  },
+  {
+   "fieldname": "evidence_date",
+   "fieldtype": "Date",
+   "label": "Evidence Date"
+  },
+  {
+   "fieldname": "evidence_note",
+   "fieldtype": "Small Text",
+   "label": "Evidence Note"
+  }
+ ],
+ "idx": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-07-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "Attribution Evidence",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,3 +1,8 @@
+> **Status: Historical / Superseded**
+>
+> Implementation status is maintained in:
+> `docs/implementation/SPRINT_2_COMPLETION_PACKAGE.md`
+
 # Sprint 1 Backlog & Status
 
 ## Sprint policy

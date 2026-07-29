@@ -2,6 +2,45 @@
 
 All notable changes to this app are documented in this file.
 
+## v0.2.0-baseline
+
+### Sprint 2 completion summary
+- Frozen Sprint 1 + Sprint 2 baseline consolidated for release tagging.
+
+### Features delivered
+- Sprint 2 Feature 1: `Operational Review View` (Script Report)
+- Sprint 2 Feature 2: `Attribution Case` + child tables + approval workflow + register report
+- Sprint 2 Feature 3: `Executive Proof Snapshot` (Print Format on `Attribution Case`)
+
+### Migration status
+- PASS (`bench --site baby-dokkan.store migrate`)
+
+### Regression summary
+- Baseline regression suites passed:
+	- `test_lighthouse_workflow_charter`
+	- `test_decision_record`
+	- `test_dependency_exception_record`
+	- `test_operational_review_view`
+	- `test_attribution_case`
+	- `test_executive_proof_snapshot`
+
+### Testing summary
+- Full baseline module run status: PASS (including expected conditional workflow skip behavior in patched environments).
+
+### Documentation package
+- `docs/implementation/SPRINT_2_COMPLETION_PACKAGE.md`
+- `docs/implementation/REPOSITORY_ENGINEERING_AUDIT.md`
+- `docs/implementation/V0_2_0_RELEASE_READINESS.md`
+
+### Known limitations
+- See `docs/KNOWN_LIMITATIONS.md`.
+
+### Technical debt reference
+- See `docs/TECHNICAL_DEBT.md`.
+
+### Release readiness reference
+- See `docs/implementation/V0_2_0_RELEASE_READINESS.md`.
+
 ## 2026-07-27
 
 ### Added — S0-F1 foundation guardrails

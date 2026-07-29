@@ -1,3 +1,8 @@
+> **Status: Planning Only**
+>
+> Not implemented.
+> Not part of `v0.2.0-baseline`.
+
 # SPRINT_3_PLANNING_BRIEF
 
 Date: 2026-07-29  

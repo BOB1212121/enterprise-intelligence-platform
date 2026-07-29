@@ -8,9 +8,14 @@ You can install this app using the [bench](https://github.com/frappe/bench) CLI:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
+bench get-app $URL_OF_THIS_REPO --branch v0.2.0-baseline
 bench install-app enterprise_intelligence_platform
 ```
+
+### Release consumption guidance
+
+- `main` is the development/integration branch.
+- For stable consumption, install from a release tag (for this baseline: `v0.2.0-baseline`).
 
 ### Contributing
 

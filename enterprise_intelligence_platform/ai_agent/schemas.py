@@ -327,20 +327,122 @@ def recommendation_from_dict(data: dict[str, Any]) -> Recommendation:
     )
 
 
-__all__ = [
-    "VALID_CONFIDENCE_BANDS",
-    "REQUIRED_CONFIDENCE_DIMENSIONS",
-    "VALID_RECOMMENDATION_CLASSES",
-    "CanonicalActionSignal",
-    "CanonicalDecisionSignal",
-    "CanonicalDependencySignal",
-    "CanonicalKPISignal",
-    "CharterContext",
-    "ConfidenceState",
-    "Recommendation",
-    "RecommendationPackage",
-    "VerificationPlan",
-    "charter_context_to_snapshot",
-    "recommendation_from_dict",
-    "recommendation_to_dict",
-]
+# ── Intermediate reasoning pipeline types ────────────────────────────────────
+# These dataclasses form the typed contracts between R1–R6 reasoning layers.
+# They live here because they are domain contracts, not layer-specific details.
+
+
+@dataclass(frozen=True)
+class IntentFrame:
+    """Output of R1 Intent Framing. Contains governance intent only — no recommendations."""
+
+    objective: str
+    constraints: tuple[str, ...]
+    priorities: tuple[str, ...]
+    scope_summary: str
+
+    def __post_init__(self) -> None:
+        if not self.objective:
+            raise ValueError("IntentFrame objective must not be empty")
+        if not self.scope_summary:
+            raise ValueError("IntentFrame scope_summary must not be empty")
+
+
+@dataclass(frozen=True)
+class SituationAssessment:
+    """Output of R2 Situation Interpretation. Contains observations only — no decisions."""
+
+    observations: tuple[str, ...]
+    risk_indicators: tuple[str, ...]
+    opportunity_indicators: tuple[str, ...]
+    context_summary: str
+
+    def __post_init__(self) -> None:
+        if not self.context_summary:
+            raise ValueError("SituationAssessment context_summary must not be empty")
+
+
+@dataclass(frozen=True)
+class CausalHypothesis:
+    """Output element of R3 Causal Hypothesis Construction.
+
+    Follows the approved grammar:
+    'If [assumption] + [context_conditions] → [proposed_action] → [expected_outcome] + [value_effect]'
+    """
+
+    assumption: str
+    context_conditions: str
+    proposed_action: str
+    expected_outcome: str
+    value_effect: str
+    hypothesis_text: str       # full grammar string; must contain '→'
+    recommendation_class: str  # propagated to R4 DecisionOption
+
+    def __post_init__(self) -> None:
+        if not self.assumption:
+            raise ValueError("CausalHypothesis assumption must not be empty")
+        if not self.hypothesis_text:
+            raise ValueError("CausalHypothesis hypothesis_text must not be empty")
+        if "\u2192" not in self.hypothesis_text:
+            raise ValueError("CausalHypothesis hypothesis_text must contain '\u2192'")
+        if self.recommendation_class not in VALID_RECOMMENDATION_CLASSES:
+            raise ValueError(
+                f"recommendation_class must be one of {sorted(VALID_RECOMMENDATION_CLASSES)}"
+            )
+
+
+@dataclass(frozen=True)
+class DecisionOption:
+    """Output element of R4 Option Generation.
+
+    Carries all fields needed to build a Recommendation except confidence;
+    confidence is added by R5.
+    """
+
+    hypothesis: CausalHypothesis
+    recommendation_class: str
+    objective_served: str
+    expected_value_hypothesis: str
+    trade_offs: tuple[str, ...]
+    risk_exposure: str
+    dependency_implications: str
+    owner_and_review_point: str
+    verification_baseline: str
+    verification_kpi_direction: str   # Increase / Decrease / Stable
+    verification_review_window: str
+    verification_acceptance_criteria: str
+
+    def __post_init__(self) -> None:
+        if self.recommendation_class not in VALID_RECOMMENDATION_CLASSES:
+            raise ValueError(
+                f"recommendation_class must be one of {sorted(VALID_RECOMMENDATION_CLASSES)}"
+            )
+        if not self.objective_served:
+            raise ValueError("DecisionOption objective_served must not be empty")
+
+
+@dataclass
+class CalibratedDecisionOption:
+    """Output element of R5 Confidence Calibration.
+
+    Wraps a DecisionOption and adds the five-dimension confidence state.
+    Only R6 converts this into a final Recommendation.
+    """
+
+    option: DecisionOption
+    confidence_band: str                 # High / Medium / Low
+    confidence_rationale: str
+    confidence_dimensions: dict[str, str]  # five required keys
+
+    def __post_init__(self) -> None:
+        if self.confidence_band not in VALID_CONFIDENCE_BANDS:
+            raise ValueError(
+                f"confidence_band must be one of {sorted(VALID_CONFIDENCE_BANDS)}"
+            )
+        if not self.confidence_rationale:
+            raise ValueError("confidence_rationale must not be empty")
+        missing = REQUIRED_CONFIDENCE_DIMENSIONS - set(self.confidence_dimensions)
+        if missing:
+            raise ValueError(
+                f"confidence_dimensions missing required keys: {sorted(missing)}"
+            )

@@ -1,0 +1,30 @@
+{
+ "actions": [],
+ "creation": "2026-08-05 00:00:00.000000",
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-08-05 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "eip-decision-intelligence",
+ "owner": "Administrator",
+ "page_name": "eip-decision-intelligence",
+ "roles": [
+  {
+   "role": "EIP Workflow Owner"
+  },
+  {
+   "role": "EIP Executive Sponsor"
+  },
+  {
+   "role": "EIP Operations Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "title": "EIP Decision Intelligence"
+}

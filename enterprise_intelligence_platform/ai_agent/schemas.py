@@ -157,9 +157,9 @@ class Recommendation:
     index: int
     recommendation_class: str      # Preventive / Corrective / Optimizing / Learning-Oriented
     objective_served: str          # field 1
-    assumptions: list[str]         # field 2 — min 1 non-empty entry
+    assumptions: tuple[str, ...]     # field 2 — min 1 non-empty entry; immutable governance artefact
     expected_value_hypothesis: str  # field 3
-    trade_offs: list[str]          # field 4
+    trade_offs: tuple[str, ...]          # field 4
     risk_exposure: str             # field 5
     dependency_implications: str   # field 6
     confidence_state: ConfidenceState   # field 7
@@ -306,9 +306,9 @@ def recommendation_from_dict(data: dict[str, Any]) -> Recommendation:
         index=int(data["index"]),
         recommendation_class=data["recommendation_class"],
         objective_served=data["objective_served"],
-        assumptions=list(data["assumptions"]),
+        assumptions=tuple(data["assumptions"]),
         expected_value_hypothesis=data["expected_value_hypothesis"],
-        trade_offs=list(data.get("trade_offs", [])),
+        trade_offs=tuple(data.get("trade_offs", [])),
         risk_exposure=data["risk_exposure"],
         dependency_implications=data["dependency_implications"],
         confidence_state=ConfidenceState(

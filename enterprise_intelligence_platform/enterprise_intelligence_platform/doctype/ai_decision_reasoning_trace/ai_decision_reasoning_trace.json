@@ -1,0 +1,136 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-08-05 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "charter",
+  "decision_record",
+  "column_break_3",
+  "model_identifier",
+  "fallback_used",
+  "execution_timestamp",
+  "section_break_7",
+  "recommendation_class",
+  "recommendation_index",
+  "source_recommendation_hash",
+  "section_break_11",
+  "context_snapshot",
+  "confidence_rationale"
+ ],
+ "fields": [
+  {
+   "default": "ADRT-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "ADRT-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "charter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lighthouse Workflow Charter",
+   "options": "Lighthouse Workflow Charter",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_record",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Decision Record",
+   "options": "Decision Record",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "model_identifier",
+   "fieldtype": "Data",
+   "label": "Model Identifier",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "fallback_used",
+   "fieldtype": "Check",
+   "label": "Fallback Used"
+  },
+  {
+   "fieldname": "execution_timestamp",
+   "fieldtype": "Datetime",
+   "label": "Execution Timestamp",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "recommendation_class",
+   "fieldtype": "Select",
+   "label": "Recommendation Class",
+   "options": "Preventive\nCorrective\nOptimizing\nLearning-Oriented"
+  },
+  {
+   "fieldname": "recommendation_index",
+   "fieldtype": "Int",
+   "label": "Recommendation Index"
+  },
+  {
+   "fieldname": "source_recommendation_hash",
+   "fieldtype": "Data",
+   "label": "Source Recommendation Hash",
+   "unique": 1
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "context_snapshot",
+   "fieldtype": "Long Text",
+   "label": "Context Snapshot"
+  },
+  {
+   "fieldname": "confidence_rationale",
+   "fieldtype": "Long Text",
+   "label": "Confidence Rationale"
+  }
+ ],
+ "links": [],
+ "modified": "2026-08-05 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "AI Decision Reasoning Trace",
+ "naming_rule": "By \"Naming Series\"",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "read": 1,
+   "role": "System Manager"
+  },
+  {
+   "read": 1,
+   "role": "EIP Workflow Owner"
+  },
+  {
+   "read": 1,
+   "role": "EIP Executive Sponsor"
+  },
+  {
+   "read": 1,
+   "role": "EIP Operations Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}

@@ -1,0 +1,114 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-08-05 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "charter",
+  "rejected_by",
+  "column_break_3",
+  "rejected_at",
+  "reason",
+  "section_break_6",
+  "recommendation_class",
+  "recommendation_summary",
+  "recommendation_data"
+ ],
+ "fields": [
+  {
+   "default": "ARRL-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "ARRL-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "charter",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Lighthouse Workflow Charter",
+   "options": "Lighthouse Workflow Charter",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rejected_by",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Rejected By",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejected_at",
+   "fieldtype": "Datetime",
+   "label": "Rejected At",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Reason",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "recommendation_class",
+   "fieldtype": "Select",
+   "label": "Recommendation Class",
+   "options": "Preventive\nCorrective\nOptimizing\nLearning-Oriented"
+  },
+  {
+   "fieldname": "recommendation_summary",
+   "fieldtype": "Small Text",
+   "label": "Recommendation Summary"
+  },
+  {
+   "fieldname": "recommendation_data",
+   "fieldtype": "Long Text",
+   "label": "Recommendation Data"
+  }
+ ],
+ "links": [],
+ "modified": "2026-08-05 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Enterprise Intelligence Platform",
+ "name": "AI Recommendation Rejection Log",
+ "naming_rule": "By \"Naming Series\"",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "System Manager"
+  },
+  {
+   "create": 1,
+   "read": 1,
+   "role": "EIP Workflow Owner"
+  },
+  {
+   "read": 1,
+   "role": "EIP Executive Sponsor"
+  },
+  {
+   "read": 1,
+   "role": "EIP Operations Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}

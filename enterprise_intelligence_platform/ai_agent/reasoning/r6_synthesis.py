@@ -64,9 +64,9 @@ class R6DecisionSupportSynthesis(BaseReasoningLayer):
             index=index,
             recommendation_class=opt.recommendation_class,
             objective_served=opt.objective_served,
-            assumptions=[hyp.assumption],
+            assumptions=(hyp.assumption,),
             expected_value_hypothesis=opt.expected_value_hypothesis,
-            trade_offs=list(opt.trade_offs),
+            trade_offs=opt.trade_offs,
             risk_exposure=opt.risk_exposure,
             dependency_implications=opt.dependency_implications,
             confidence_state=ConfidenceState(

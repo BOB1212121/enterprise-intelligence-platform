@@ -20,7 +20,9 @@ class R1IntentFraming(BaseReasoningLayer):
         if response.success:
             parsed = self._parse_llm_output(response.text, context)
             if parsed is not None:
+                self.used_fallback = False
                 return parsed
+        self.used_fallback = True
         return self._fallback(context)
 
     # ── prompt ───────────────────────────────────────────────────────────────

@@ -14,7 +14,13 @@ class BaseReasoningLayer:
     """Marker base class providing JSON parsing utilities.
 
     Each layer is independently callable and has no knowledge of other layers.
+
+    ``used_fallback`` is set to True by R1–R3 when the LLM path was unavailable
+    or produced unparseable output.  The ReasoningAgent reads it to populate
+    ``RecommendationPackage.fallback_used``.
     """
+
+    used_fallback: bool = False  # overridden per instance during execute()
 
     @staticmethod
     def _try_parse_json(text: str) -> dict[str, Any] | list[Any] | None:

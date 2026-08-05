@@ -30,7 +30,9 @@ class R2SituationInterpretation(BaseReasoningLayer):
         if response.success:
             parsed = self._parse_llm_output(response.text)
             if parsed is not None:
+                self.used_fallback = False
                 return parsed
+        self.used_fallback = True
         return self._fallback(frame, context)
 
     # ── prompt ───────────────────────────────────────────────────────────────

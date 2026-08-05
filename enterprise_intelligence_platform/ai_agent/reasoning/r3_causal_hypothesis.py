@@ -34,7 +34,9 @@ class R3CausalHypothesisConstruction(BaseReasoningLayer):
         if response.success:
             parsed = self._parse_llm_output(response.text, assessment)
             if parsed:
+                self.used_fallback = False
                 return parsed
+        self.used_fallback = True
         return self._fallback(assessment)
 
     # ── prompt ───────────────────────────────────────────────────────────────

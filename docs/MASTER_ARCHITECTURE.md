@@ -54,14 +54,14 @@
 | 8 | Organizational Memory | Approved | `PHASE_6_AI_REASONING_ARCHITECTURE_MODEL_AGNOSTIC.md` |
 | 9 | Reasoning Framework | Approved | `PHASE_6_AI_REASONING_ARCHITECTURE_MODEL_AGNOSTIC.md` |
 | 10 | Enterprise Events | Approved | `PHASE_3_EBG_COMPLETE_ONTOLOGY_SPECIFICATION.md` |
-| 11 | Policies | Pending architecture consolidation | _TBD_ |
+| 11 | Policies | Approved | `docs/Architecture/POLICY_ARCHITECTURE_CONSTITUTION.md` |
 | 12 | Business Rules | Approved (core set) | `PHASE_3_EBG_COMPLETE_ONTOLOGY_SPECIFICATION.md` |
 | 13 | Trust Architecture | Approved (business level) | `PHASE_5_BOUNDED_CONTEXTS_AND_INTERACTION_CONTRACTS.md` |
 | 14 | Economic Value Model | Approved (V1 level) | `PHASE_1_PRD_V1_BUSINESS_OUTCOME.md` |
 | 15 | AI Architecture (Conceptual) | Approved (model-agnostic reasoning) | `PHASE_6_AI_REASONING_ARCHITECTURE_MODEL_AGNOSTIC.md` |
 | 16 | Engineering Constitution | Approved | `ENGINEERING_CONSTITUTION.md` |
-| 17 | Reference Architecture | Draft for approval (Sprint 0 / S0-F1) | `docs/Architecture/REFERENCE_ARCHITECTURE.md` |
-| 18 | Plugin Architecture | Pending | _TBD_ |
+| 17 | Reference Architecture | Approved | `docs/Architecture/REFERENCE_ARCHITECTURE.md` |
+| 18 | Plugin Architecture | Approved | `docs/Architecture/PLUGIN_ARCHITECTURE.md` |
 | 19 | Integration Architecture | Pending | _TBD_ |
 | 20 | Multi-Tenant Architecture | Pending | _TBD_ |
 | 21 | Security Architecture | Pending | _TBD_ |
@@ -114,9 +114,9 @@ No phase is considered active until recorded here.
 
 ## 6) Open Architecture Queue
 
-1. Phase 11 consolidation: policy architecture constitution  
-2. Phase 17: reference architecture (canonical engineering blueprint)  
-3. Phase 18: plugin architecture (business and semantic extension model)  
+1. Phase 11 consolidation: policy architecture constitution (completed and approved)  
+2. Phase 17: reference architecture (canonical engineering blueprint) (completed and approved)  
+3. Phase 18: plugin architecture (business and semantic extension model) (completed and approved)  
 4. Phase 19: integration architecture (ERP-agnostic context contracts)  
 5. Phase 20: multi-tenant architecture (business isolation + learning portability rules)  
 6. Phase 21: security architecture (trust, control, and governance model)  
@@ -125,6 +125,8 @@ No phase is considered active until recorded here.
 9. Phase 24: implementation roadmap
 
 **Execution rule (Sprint 0 onward):** Once Phase 17 (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) is approved, implementation proceeds immediately; no further architecture document blocks execution unless a critical contradiction is discovered and logged via ADR.
+
+**Historical implementation record clarification:** The recorded Sprint 1 through Sprint 4 implementation approvals and completions remain valid approved history and are not invalidated by the current Phase 17 approval status. This clarification does **not** ratify Phase 17 (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) and does **not** declare it approved. **Upon approval of this amendment, no new implementation scope may begin unless either (a) Phase 17 is approved, or (b) an ADR-approved exception is recorded in this canonical governance ledger.**
 
 ---
 
@@ -142,6 +144,9 @@ No phase is considered active until recorded here.
 - **2026-07-27:** Added `ENGINEERING_CONSTITUTION.md` as highest engineering authority and transitioned architecture governance into Engineering Architecture mode.
 - **2026-07-27:** Reordered remaining engineering phases: Engineering Constitution -> Reference Architecture -> Plugin -> Integration -> Multi-Tenant -> Security -> Deployment -> DevOps -> Implementation Roadmap.
 - **2026-07-27:** Added Sprint 0 Reference Architecture draft (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) and ADR-0001; established non-blocking implementation rule after Phase 17 approval unless critical contradiction is logged.
+- **2026-08-03:** Approved Phase 11 Policies canonical governance artifact (`docs/Architecture/POLICY_ARCHITECTURE_CONSTITUTION.md`) and recorded the phase as approved in the canonical architecture ledger.
+- **2026-08-03:** Approved Phase 17 Reference Architecture (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) as the canonical implementation-enabling Reference Architecture.
+- **2026-08-05:** Approved Phase 18 Plugin Architecture (`docs/Architecture/PLUGIN_ARCHITECTURE.md`) as the canonical plugin architecture governance artifact.
 - **2026-07-27:** Implementation progress — S1-F1 completed (Lighthouse Workflow Setup & Baseline Charter) on `baby-dokkan.store` with Frappe-native DocTypes, Workflow, permissions, report, validations, and passing test suite. External workflow monkey-patch incompatibility documented as non-app issue.
 - **2026-07-27:** Implementation progress — S1-F2 completed (Decision Record with Accountability & Assumptions) on `baby-dokkan.store` with Frappe-native workflow governance, server-side validations, report, and passing test suite.
 - **2026-07-27:** Implementation progress — S1-F3 completed (Dependency & Exception Tracking) on `baby-dokkan.store` with Frappe-native dependency/exception record workflow, validations, report, and passing test suite.

@@ -118,7 +118,12 @@ Canonical ownership is inherited from approved Phase 5 context map:
 - **BC-CR** Cadence/Rituals — COO cadence office
 - **BC-CE** Conflict/Exception — Governance board
 - **BC-ST** Trust/Adoption — CEO/CPO/COO
-- Generic contexts per governance stewards in approved docs.
+- **BC-IR** Identity/Role/Responsibility Context — enterprise governance office
+- **BC-OR** Organizational Structure Context — operating model governance
+- **BC-TC** Time & Operating Period Context — enterprise operating cadence governance
+- **BC-TG** Taxonomy & Glossary Context — ontology stewardship council
+- **BC-EP** Evidence Provenance & Audit Context — governance assurance office
+- **BC-BM** External Benchmark Context — strategy intelligence office
 
 ## 4) How do contexts communicate?
 

@@ -62,7 +62,7 @@
 | 16 | Engineering Constitution | Approved | `ENGINEERING_CONSTITUTION.md` |
 | 17 | Reference Architecture | Approved | `docs/Architecture/REFERENCE_ARCHITECTURE.md` |
 | 18 | Plugin Architecture | Approved | `docs/Architecture/PLUGIN_ARCHITECTURE.md` |
-| 19 | Integration Architecture | Pending | _TBD_ |
+| 19 | Integration Architecture | Approved | `docs/Architecture/INTEGRATION_ARCHITECTURE.md` |
 | 20 | Multi-Tenant Architecture | Pending | _TBD_ |
 | 21 | Security Architecture | Pending | _TBD_ |
 | 22 | Deployment Architecture | Pending | _TBD_ |
@@ -117,7 +117,7 @@ No phase is considered active until recorded here.
 1. Phase 11 consolidation: policy architecture constitution (completed and approved)  
 2. Phase 17: reference architecture (canonical engineering blueprint) (completed and approved)  
 3. Phase 18: plugin architecture (business and semantic extension model) (completed and approved)  
-4. Phase 19: integration architecture (ERP-agnostic context contracts)  
+4. Phase 19: integration architecture (ERP-agnostic context contracts) (completed and approved)  
 5. Phase 20: multi-tenant architecture (business isolation + learning portability rules)  
 6. Phase 21: security architecture (trust, control, and governance model)  
 7. Phase 22: deployment architecture (cloud-agnostic operating model)  
@@ -147,6 +147,7 @@ No phase is considered active until recorded here.
 - **2026-08-03:** Approved Phase 11 Policies canonical governance artifact (`docs/Architecture/POLICY_ARCHITECTURE_CONSTITUTION.md`) and recorded the phase as approved in the canonical architecture ledger.
 - **2026-08-03:** Approved Phase 17 Reference Architecture (`docs/Architecture/REFERENCE_ARCHITECTURE.md`) as the canonical implementation-enabling Reference Architecture.
 - **2026-08-05:** Approved Phase 18 Plugin Architecture (`docs/Architecture/PLUGIN_ARCHITECTURE.md`) as the canonical plugin architecture governance artifact.
+- **2026-08-05:** Approved Phase 19 Integration Architecture (`docs/Architecture/INTEGRATION_ARCHITECTURE.md`) as the canonical integration architecture governance artifact.
 - **2026-07-27:** Implementation progress — S1-F1 completed (Lighthouse Workflow Setup & Baseline Charter) on `baby-dokkan.store` with Frappe-native DocTypes, Workflow, permissions, report, validations, and passing test suite. External workflow monkey-patch incompatibility documented as non-app issue.
 - **2026-07-27:** Implementation progress — S1-F2 completed (Decision Record with Accountability & Assumptions) on `baby-dokkan.store` with Frappe-native workflow governance, server-side validations, report, and passing test suite.
 - **2026-07-27:** Implementation progress — S1-F3 completed (Dependency & Exception Tracking) on `baby-dokkan.store` with Frappe-native dependency/exception record workflow, validations, report, and passing test suite.
